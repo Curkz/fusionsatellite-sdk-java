@@ -33,6 +33,7 @@ import org.junit.Test;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
+import au.com.dmg.fusion.data.CurrencyType;
 import au.com.dmg.fusion.data.PaymentBrand;
 import au.com.dmg.fusion.data.PaymentType;
 import au.com.dmg.fusion.data.UnitOfMeasure;
@@ -55,8 +56,12 @@ public class PaymentRequestTest {
                 )
                 .paymentTransaction(new PaymentTransaction.Builder()
                         .amountsReq(new AmountsReq.Builder()
-                                .currency("AUD")
-                                .requestedAmount(new BigDecimal("5.0"))
+                                .type(CurrencyType.Card)
+                                .cardReq(new CardReq.Builder()
+                                        .currency("AUD")
+                                        .requestedAmount(new BigDecimal("5.0"))
+                                        .build()
+                                )
                                 .build()
                         )
                         .originalPOITransaction(new OriginalPOITransaction.Builder()
