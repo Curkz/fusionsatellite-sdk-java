@@ -36,43 +36,40 @@ import com.squareup.moshi.Moshi;
 import au.com.dmg.fusion.util.InstantAdapter;
 import au.com.dmg.fusion.util.BigDecimalAdapter;
 
-public class CryptoReqTest {
+public class CardReqTest {
 
     @Test
     public void testJson() {
-        CryptoReq cryptoRequest = new CryptoReq.Builder()
-                .currency("BTC")
+        CardReq cardRequest = new CardReq.Builder()
+                .currency("USD")
                 .requestedAmount(new BigDecimal("1.0"))
-                .senderAddress("testSenderAddress")
                 .build();
 
-        assert (cryptoRequest.getCurrency().equals("BTC"));
-        assert (cryptoRequest.getRequestedAmount().equals(new BigDecimal("1.0")));
-        assert (cryptoRequest.getSenderAddress().equals("testSenderAddress"));
+        assert (cardRequest.getCurrency().equals("USD"));
+        assert (cardRequest.getRequestedAmount().equals(new BigDecimal("1.0")));
 
         Moshi moshi = new Moshi.Builder()
             .add(new BigDecimalAdapter())
             .add(new InstantAdapter())
             .build();
         
-        JsonAdapter<CryptoReq> jsonAdapter = moshi.adapter(CryptoReq.class);
-        String json = jsonAdapter.toJson(cryptoRequest);
-        
-        CryptoReq serializedCryptoRequest = null;
+        JsonAdapter<CardReq> jsonAdapter = moshi.adapter(CardReq.class);
+        String json = jsonAdapter.toJson(cardRequest);
+
+        CardReq serializedCardRequest = null;
         try {
-            serializedCryptoRequest = jsonAdapter.fromJson(json);
+            serializedCardRequest = jsonAdapter.fromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assert (serializedCryptoRequest.getCurrency().equals("BTC"));
-        assert (serializedCryptoRequest.getRequestedAmount().equals(new BigDecimal("1.0")));
-        assert (serializedCryptoRequest.getSenderAddress().equals("testSenderAddress"));
+        assert (serializedCardRequest.getCurrency().equals("USD"));
+        assert (serializedCardRequest.getRequestedAmount().equals(new BigDecimal("1.0")));
     }
 
     @Test
     public void testNull() {
         try {
-            CryptoReq cryptoRequest = new CryptoReq.Builder()
+            CardReq cardRequest = new CardReq.Builder()
                 .build();
         } catch (Exception e) {
             NullPointerException nullPointerException = new NullPointerException();
@@ -83,21 +80,7 @@ public class CryptoReqTest {
     @Test
     public void testNullCurrency() {
         try {
-            CryptoReq cryptoRequest = new CryptoReq.Builder()
-                .requestedAmount(new BigDecimal("1.0"))
-                .senderAddress("testSenderAddress")
-                .build();
-        } catch (Exception e) {
-            NullPointerException nullPointerException = new NullPointerException();
-            assertThat(e, instanceOf(nullPointerException.getClass()));
-        }
-    }
-
-    @Test
-    public void testNullSenderAddress() {
-        try {
-            CryptoReq cryptoRequest = new CryptoReq.Builder()
-                .currency("ETH")
+            CardReq cardRequest = new CardReq.Builder()
                 .requestedAmount(new BigDecimal("1.0"))
                 .build();
         } catch (Exception e) {
@@ -109,13 +92,13 @@ public class CryptoReqTest {
     @Test
     public void testNullRequestedAmount() {
         try {
-            CryptoReq cryptoRequest = new CryptoReq.Builder()
-                .currency("XMR")
-                .senderAddress("testSenderAddress")
+            CardReq cardRequest = new CardReq.Builder()
+                .currency("AUD")
                 .build();
         } catch (Exception e) {
             NullPointerException nullPointerException = new NullPointerException();
             assertThat(e, instanceOf(nullPointerException.getClass()));
         }
     }
+
 }

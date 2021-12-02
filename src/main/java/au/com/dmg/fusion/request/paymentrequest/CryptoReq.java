@@ -82,17 +82,17 @@ public class CryptoReq {
             if (this.currency == null) {
                 throw new NullPointerException("The property \"currency\" is null. "
                         + "Please set the value by \"currency()\". "
-                        + "The properties \"currency\", \"senderAddress\" are required.");
+                        + "The properties \"currency\", \"requestedAmount\" and \"senderAddress\" are required.");
             }
             if (this.senderAddress == null) {
-                throw new NullPointerException("The property \"currency\" is null. "
-                        + "Please set the value by \"currency()\". "
-                        + "The properties \"currency\", \"senderAddress\" are required.");
+                throw new NullPointerException("The property \"senderAddress\" is null. "
+                        + "Please set the value by \"senderAddress()\". "
+                        + "The properties \"currency\", \"requestedAmount\" and \"senderAddress\" are required.");
             }
             if (this.requestedAmount == null) {
                 throw new NullPointerException("The property \"requestedAmount\" is null. "
                         + "Please set the value by \"requestedAmount()\". "
-                        + "The properties \"currency\", \"requestedAmount\" are required.");
+                        + "The properties \"currency\", \"requestedAmount\" and \"senderAddress\" are required.");
             }
             return new CryptoReq(this);
         }
